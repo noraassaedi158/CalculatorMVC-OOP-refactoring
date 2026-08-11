@@ -1,0 +1,50 @@
+from CalculatorModel import bracket, conversion, validation, normalization, bidmas
+class CalculatorControl:
+    def text_handle():
+        values = screen.text().split()
+        answer = manager(values)
+
+        if answer != None:
+            screen.clear()
+            screen.setText(str(answer[0]))
+
+        if answer == None:
+            press()
+            return
+
+    def manager(values):
+        global stop
+        stop = False
+
+        if len(values) == 0:
+            stop = True
+            return
+
+        else:
+            if stop == False:
+                bracket(values)
+                answer = conversion(values)
+                answer = validation(answer)
+
+                if stop == False:
+                    answer = normalization(answer)
+
+                    if stop == False and len(answer) != 1:
+                        answer = bidmas(answer)
+                        return answer
+
+                    elif stop == False:
+                        return answer
+
+                    else:
+                        return
+
+                else:
+                    return
+
+            if stop == True:
+                press()
+                return
+
+            else:
+                return
