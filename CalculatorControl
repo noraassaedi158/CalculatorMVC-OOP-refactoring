@@ -1,50 +1,33 @@
-from CalculatorModel import bracket, conversion, validation, normalization, bidmas
 class CalculatorControl:
-    def text_handle():
-        values = screen.text().split()
-        answer = manager(values)
+    def __init__(self, model, view):
+        self.model=model
+        self.view = view
 
+    def text_handle(self):
+        values = self.view.screen.text().split()
+        answer = self.manager(values)
         if answer != None:
-            screen.clear()
-            screen.setText(str(answer[0]))
+            self.view.display_answer(answer)
 
         if answer == None:
-            press()
+            self.view.press()
             return
 
-    def manager(values):
-        global stop
-        stop = False
-
+    def manager(self, values):
         if len(values) == 0:
-            stop = True
+            self.view.press()
             return
-
         else:
-            if stop == False:
-                bracket(values)
-                answer = conversion(values)
-                answer = validation(answer)
+             self.model.bracket(values)
+             answer = self.model.conversion(values)
+             answer = self.model.validation(answer)
+             answer = self.model.normalization(answer)
+             answer = self.model.bidmas(answer)
+             if answer != None:
+                 self.view.display_answer(answer)
 
-                if stop == False:
-                    answer = normalization(answer)
+             if answer == None:
+                 self.view.press()
+                 return
 
-                    if stop == False and len(answer) != 1:
-                        answer = bidmas(answer)
-                        return answer
 
-                    elif stop == False:
-                        return answer
-
-                    else:
-                        return
-
-                else:
-                    return
-
-            if stop == True:
-                press()
-                return
-
-            else:
-                return
