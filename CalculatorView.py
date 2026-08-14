@@ -63,7 +63,6 @@ class CalculatorView(QWidget):
         right_br = QPushButton(")")
         right_br.clicked.connect(lambda: self.calc_num(" ) "))
         self.equals = QPushButton(" = ")
-        self.equals.clicked.connect(text_handle)
         press_me = QPushButton("Press me!")
         press_me.clicked.connect(self.press)
         title = QLabel("This is my first personal mini project!")
@@ -123,6 +122,8 @@ class CalculatorView(QWidget):
                                                     font-weight: bold} """)
         self.setFixedSize(300, 300)
         self.show()
+
+
     def en(self):
         return random.choice(q["encourage"])
     def calc_num(self,n):
@@ -134,6 +135,9 @@ class CalculatorView(QWidget):
     def press(self):
         self.screen.clear()
         self.screen.setPlaceholderText((self.en()))
+    def display_answer(self, answer):
+        self.screen.clear()
+        self.screen.setText(str(answer[0]))
 
     def time_rn(self):
         self.time.setText("Time: " + datetime.datetime.now().strftime("%I:%M %p"))
