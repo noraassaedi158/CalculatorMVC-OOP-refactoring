@@ -5,8 +5,6 @@ import random
 import datetime
 from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QGridLayout, QLineEdit
 from PySide6.QtCore import QTimer, Qt
-#this whole thing is the app
-my_app = QApplication(sys.argv)
 #open my JSON file to access the qoutes
 with open("qoutes.json", 'r') as file:
     q = json.load(file)
@@ -120,8 +118,8 @@ class CalculatorView(QWidget):
                                     font-family: Lucida Console} 
                            QLineEdit::placeholder { color: white;
                                                     font-weight: bold} """)
-        self.setFixedSize(300, 300)
-        self.show()
+
+
 
 
     def en(self):
@@ -135,6 +133,7 @@ class CalculatorView(QWidget):
     def press(self):
         self.screen.clear()
         self.screen.setPlaceholderText((self.en()))
+
     def display_answer(self, answer):
         self.screen.clear()
         self.screen.setText(str(answer[0]))
@@ -143,4 +142,3 @@ class CalculatorView(QWidget):
         self.time.setText("Time: " + datetime.datetime.now().strftime("%I:%M %p"))
 
 
-my_app.exec()
