@@ -2,17 +2,14 @@ class CalculatorControl:
     def __init__(self, model, view):
         self.model=model
         self.view = view
-
     def text_handle(self):
         values = self.view.screen.text().split()
         answer = self.manager(values)
         if answer != None:
             self.view.display_answer(answer)
-
         if answer == None:
             self.view.press()
             return
-
     def manager(self, values):
         if len(values) == 0:
             self.view.press()
@@ -23,11 +20,6 @@ class CalculatorControl:
              answer = self.model.validation(answer)
              answer = self.model.normalization(answer)
              answer = self.model.bidmas(answer)
-             if answer != None:
-                 self.view.display_answer(answer)
-
-             if answer == None:
-                 self.view.press()
-                 return
+             return answer
 
 
