@@ -176,10 +176,7 @@ class CalculatorModel:
                 while m < len(values):
                     if m + 1 < len(values) and m >= 0:
                         if values[m] == "-" or values[m] == "+":
-                            if ((m == 0 and isinstance(values[m + 1], float)) or
-                                m > 0 and
-                                (not isinstance(values[m - 1], float) and
-                                 isinstance(values[m + 1], float))):
+                            if ((m == 0 and isinstance(values[m + 1], float)) or m > 0 and (not isinstance(values[m - 1], float) and isinstance(values[m + 1], float))):
                                 if values[m] == "+":
                                     values[m:m + 2] = [values[m + 1]]
                                     m += 1
@@ -204,6 +201,7 @@ class CalculatorModel:
             self.stopping(values)
         elif len(values) == 1:
             self.stopping(values)
+            return values
         else:
             while len(values) != 1:
                 for m in range(0, len(values)):
