@@ -22,9 +22,11 @@ class CalculatorModel:
                     else:
                         br_finder.pop()
 
+
             if len(br_finder) > 0:
                 self.stop = True
-                self.stopping()
+                self.stopping(values)
+
 
 
             # and here is where it is solved
@@ -101,14 +103,12 @@ class CalculatorModel:
             self.normalization(values)
         else:
             validate = True
-
             if len(values) == 1:
                 if isinstance(values[0], float):
                     return values
                 else:
                     self.stop = True
                     self.stopping(values)
-
             else:
                 for m in range(0, len(values)):
                     if values[m] == 'x' or values[m] == '÷':
@@ -123,18 +123,15 @@ class CalculatorModel:
                         elif m == len(values) - 1:
                             validate = False
                         if m < len(values) - 1:
-                            if values[m + 1] == 0:
+                            if values[m + 1] == 0 and values[m]== "÷":
                                 validate = False
 
                     elif values[m] == '-' or values[m] == '+':
-
                         if m == 0:
                             if values[m + 1] == '-' or values[m + 1] == '+':
                                 validate = False
                                 break
-
                         elif 0 < m < len(values) - 1:
-
                             if (isinstance(values[m - 1], float) and
                                 values[m + 1] == '-') or values[m + 1] == '+':
                                 validate = True
@@ -148,9 +145,7 @@ class CalculatorModel:
                                 validate = False
                                 break
 
-                            elif not isinstance(values[m + 1], float):
-                                validate = False
-                                break
+
                         elif m == len(values) - 1:
                             validate = False
                             break
@@ -176,9 +171,20 @@ class CalculatorModel:
                 while m < len(values):
                     if m + 1 < len(values) and m >= 0:
                         if values[m] == "-" or values[m] == "+":
-                            if ((m == 0 and isinstance(values[m + 1], float)) or m > 0 and (not isinstance(values[m - 1], float) and isinstance(values[m + 1], float))):
+                            if m == 0 and isinstance(values[m + 1], float):
                                 if values[m] == "+":
                                     values[m:m + 2] = [values[m + 1]]
+                                    print (values)
+                                    m += 1
+                                    continue
+                                if values[m] == "-":
+                                    values[m:m + 2] = [-values[m + 1]]
+                                    m += 1
+                                    continue
+                            elif m > 0 and not isinstance(values[m - 1], float) and isinstance(values[m + 1], float):
+                                if values[m] == "+":
+                                    values[m:m + 2] = [values[m + 1]]
+                                    print(values)
                                     m += 1
                                     continue
                                 if values[m] == "-":
